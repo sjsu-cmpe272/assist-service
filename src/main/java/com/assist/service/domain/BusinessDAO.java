@@ -16,16 +16,17 @@ import java.util.List;
  */
 public class BusinessDAO {
 
-    List<Business> businessList =new ArrayList<>();
+    BusinessRegion businessRegion =new BusinessRegion();
 
     public BusinessDAO(){
 
     }
 
 
-    public List list(String location,String term){
+    public BusinessRegion businessList(YelpRequestBody yelpRequestBody){
         YelpAPI yelpAPI=new YelpAPI();
-        String searchResponse= yelpAPI.searchRestaurantByLocation(location,term);
+
+        String searchResponse= yelpAPI.searchRestaurantByLocation(yelpRequestBody);
 
         BusinessRegion businessRegion=null;
         String outputResponse=null;
@@ -37,12 +38,12 @@ public class BusinessDAO {
             objectMapper.configure(SerializationFeature.INDENT_OUTPUT,true);
             //outputResponse=objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(businessRegion);
 
-            businessList=businessRegion.businessList;
+            //businessList=businessRegion.businessList;
             System.out.println("business  :"+businessRegion.businessList);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return businessList;
+        return businessRegion;
     }
 }

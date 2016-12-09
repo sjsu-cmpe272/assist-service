@@ -1,5 +1,6 @@
 package com.assist.service.yelp;
 
+import com.assist.service.domain.YelpRequestBody;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -20,12 +21,26 @@ public class YelpAPI {
         this.token = new Token(YelpConstants.ACCESS_TOKEN, YelpConstants.TOKEN_SECRET_KEY);
     }
 
-    public String searchRestaurantByLocation(String location,String term){
+    public String searchRestaurantByLocation(YelpRequestBody yelpRequestBody){
         OAuthRequest request = new OAuthRequest(Verb.GET, "https://" + YelpConstants.YELP_API_HOST + YelpConstants.YELP_SEARCH_PATH);
-        request.addQuerystringParameter("location", location);
+        String location=yelpRequestBody.getLocation();
+        String latlong=yelpRequestBody.getLatlong();
+        String term=yelpRequestBody.getTerm();
+        String filter=yelpRequestBody.getFilter();
+
+        request.addQuerystringParameter("radius_filter","1000");
+        if(location!=null)
+            request.addQuerystringParameter("location", yelpRequestBody.getLocation());
+        else
+            request.addQuerystringParameter("ll",yelpRequestBody.getLatlong());
+
         if(!(term==null)) {
             request.addQuerystringParameter("term", term);
         }
+        if(!(filter==null)) {
+            request.addQuerystringParameter("category_filter",filter);
+        }
+
         //request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
         oauthService.signRequest(this.token, request);
         Response response = request.send();
