@@ -1,6 +1,9 @@
 package com.assist.service.skyscanner.controller;
 
+import com.assist.service.skyscanner.domain.SkyscannerCarService;
 import com.assist.service.skyscanner.domain.SkyscannerHotelService;
+import com.assist.service.skyscanner.model.car.request.CarRequest;
+import com.assist.service.skyscanner.model.car.response.CarsResponse;
 import com.assist.service.skyscanner.model.hotel.request.HotelsRequest;
 import com.assist.service.skyscanner.model.hotel.response.HotelsResponse;
 
@@ -19,7 +22,7 @@ import java.util.List;
 public class SkyscannerController {
 
   @RequestMapping(value="/hotels",method= RequestMethod.POST)
-  public HotelsResponse business(@RequestBody HotelsRequest skyscannerRequest){
+  public HotelsResponse hotels(@RequestBody HotelsRequest skyscannerRequest){
     HotelsResponse response = null;
     try {
       response = SkyscannerHotelService.callSkyscannerService(skyscannerRequest);
@@ -28,8 +31,19 @@ public class SkyscannerController {
       e.printStackTrace();
     }
     return response;
-  } 
-  
-  
+  }
+
+
+  @RequestMapping(value="/cars",method= RequestMethod.POST)
+  public CarsResponse hotels(@RequestBody CarRequest skyscannerRequest){
+    CarsResponse response = null;
+    try {
+      response = SkyscannerCarService.callSkyscannerCarService(skyscannerRequest);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    return response;
+  }
 
 }

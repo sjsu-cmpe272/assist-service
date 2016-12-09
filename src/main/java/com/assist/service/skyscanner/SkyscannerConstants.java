@@ -9,6 +9,6 @@ public class SkyscannerConstants {
   public static final String market = "US";
   public static final String locale = "en-US";
   public static final String currency = "USD";
-  
+  public static final String user_ip = "&userip=127.0.0.1";
   
 }
