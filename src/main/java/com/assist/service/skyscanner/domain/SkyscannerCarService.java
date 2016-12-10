@@ -64,9 +64,10 @@ public class SkyscannerCarService {
     sb.append(url);
     //assume pick up drop same place
     if (!StringUtils.isEmpty(carRequest.getPickupDropoff())) {
-      sb.append(carRequest.getPickupDropoff());
+      String location = SkyscannerSuggestService.callSkyscannerScanService(carRequest.getPickupDropoff());
+      sb.append(location);
       sb.append("/");
-      sb.append(carRequest.getPickupDropoff());
+      sb.append(location);
     }
     else {
       sb.append("35248814/35248814");

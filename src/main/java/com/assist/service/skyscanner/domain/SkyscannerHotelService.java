@@ -66,7 +66,8 @@ public class SkyscannerHotelService {
     StringBuilder sb = new StringBuilder();
     sb.append(url);
     if (!StringUtils.isEmpty(skyscannerRequest.getLocation())) {
-      sb.append(skyscannerRequest.getLocation());
+      String location = SkyscannerSuggestService.callSkyscannerScanService(skyscannerRequest.getLocation());
+      sb.append(location);
     }
     else {
       sb.append("35248814");
